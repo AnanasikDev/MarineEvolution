@@ -18,6 +18,12 @@ add_executable(marine
     src/Random.cpp
     src/Unit.cpp
     src/Fish.cpp
+    src/Random.cpp
+    src/Mathf.cpp
+    src/Vector.hpp
+    src/config.cpp
+    src/Time.cpp
+    src/AI.cpp
 )
 
 # Link SFML libraries

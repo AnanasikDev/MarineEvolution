@@ -23,3 +23,7 @@ Vectorf Random::getVector(float min, float max){
 Vectorf Random::getVector(const Vectorf& min, const Vectorf& max){
     return Vectorf(getFloat(min.x, min.y), getFloat(max.x, max.y));
 }
+
+int Random::getSign(){
+    return getFloat(-1.0f, 1.0f) >= 0 ? 1 : -1;
+}

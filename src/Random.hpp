@@ -12,4 +12,5 @@ public:
     static int getInt(int min, int max);
     static Vectorf getVector(float min = -1.0f, float max = 1.0f);
     static Vectorf getVector(const Vectorf& min, const Vectorf& max);
+    static int getSign();
 };

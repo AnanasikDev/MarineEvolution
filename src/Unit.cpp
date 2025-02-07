@@ -1,5 +1,8 @@
 #include "Unit.hpp"
 #include "World.hpp"
+#include "AI.hpp"
+#include "config.hpp"
+#include "Mathf.hpp"
 
 Unit::Unit(){
     shape = std::make_unique<sf::CircleShape>();
@@ -7,15 +10,18 @@ Unit::Unit(){
 }
 
 void Unit::translate(const Vectorf& delta){
-    position += delta;
-    shape->setPosition(position.getsf());
+    moveTo(position + delta);
 }
 
 void Unit::moveTo(const Vectorf& newPos){
-    position = newPos;
+    position = Vectorf(clamp(newPos.x, 0, worldWidth), clamp(newPos.y, 0, worldHeight));
     shape->setPosition(position.getsf());
 }
 
 void Unit::render(){
     World::world->window->draw(*shape);
+}
+
+float Unit::evaluateSuccess() const{
+    return (position - Vectorf(worldWidth / 2.0f, worldHeight / 2.0f)).getLength();
 }

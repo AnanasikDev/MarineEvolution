@@ -28,33 +28,37 @@ void Genom::mutate(float max01){
     float r = Random::getFloat();
     
     // rarely change connections number
-    if (r > 0.8f){
-        int d = Random::getSign();
-        connectionsNum += d;
-        if (d > 0)
-        {
-            connections.push_back(std::make_unique<Connection>());
-            connections.back()->randomize();
-        }
-        else{
-            connections.pop_back();
-        }
-    }
+    // if (r < max01 / 6.0f){
+    //     int d = Random::getSign();
+    //     connectionsNum += d;
+    //     if (d > 0)
+    //     {
+    //         connections.push_back(std::make_unique<Connection>());
+    //         connections.back()->randomize();
+    //     }
+    //     else{
+    //         if (!connections.empty())
+    //             connections.pop_back();
+    //     }
+    // }
 
     // often change connections values
-    if (r > 0.35f){
-        Connection* con = connections[Random::getInt(0, connections.size() - 1)].get();
-        con->mutate(max01);
+    if (r < max01 / 1.2f){
+        if (connections.size() != 0){
+            int i = Random::getInt(0, connections.size() - 1);
+            Connection* con = connections[i].get();
+            con->mutate(max01);
+        }
     }
 
-    if (r > 0.5f){
-        oscScale = clamp(oscScale + (Random::getFloat(-max01, max01)), -oscScaleMinMax, oscScaleMinMax);
+    if (r > 0.7f){
+        oscScale = clamp(oscScale + (Random::getFloat(-max01, max01) / 10.0f), -oscScaleMinMax, oscScaleMinMax);
     }
 }
 
 void Genom::fillRandom(){
     oscScale = Random::getFloat(-oscScaleMinMax, oscScaleMinMax);
-    connectionsNum = Random::getInt(0, 10);
+    connectionsNum = Random::getInt(1, 10);
     connections.clear();
     for (int c = 0; c < connectionsNum; c++){
         connections.push_back(std::make_unique<Connection>());
@@ -72,10 +76,10 @@ void Connection::mutate(float max01){
     weight = clamp(weight + (Random::getFloat(-max01, max01)), -weightMinMax, weightMinMax);
     if (Random::getFloat() < max01){
         if (Random::getFloat() > 0.5f){
-            in_neuron = Random::getInt(0, maxNeurons);
+            in_neuron = clamp(Random::getInt(0, maxNeurons - 1), 0, maxNeurons - 1);
         }
         else{
-            out_neuron = Random::getInt(0, maxNeurons);
+            out_neuron = clamp(Random::getInt(0, maxNeurons - 1), 0, maxNeurons - 1);
         }
     }
 }

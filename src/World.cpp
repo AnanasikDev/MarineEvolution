@@ -1,3 +1,4 @@
+#include "config.hpp"
 #include "World.hpp"
 #include "Time.h"
 #include "AI.hpp"
@@ -11,7 +12,7 @@ World::World(float width, float height){
     world = this;
     size = Vectorf(width, height);
     window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), "Evolution");
-    initTime();
+    resetTime();
 
     for (int i = 0; i < maxUnits; i++){
         allfish.push_back(std::make_unique<Fish>());
@@ -58,7 +59,9 @@ void World::nextGen() {
     for (size_t i = numToKeep; i < scoredUnits.size(); i++) {
         Genom* parentGenom = bestGenomes[Random::getInt(0, bestGenomes.size() - 1)]; // Random top parent
         scoredUnits[i].first->genom->inherit(*parentGenom);
-        scoredUnits[i].first->genom->mutate(mutationStrength);
+        if (Random::getFloat() < mutationFreq){
+            scoredUnits[i].first->genom->mutate(mutationStrength);
+        }
         scoredUnits[i].first->onBirth();
     }
 }

@@ -1,10 +1,13 @@
 #pragma once
-#include <time.h>
-#include "config.hpp"
 
-extern time_t start;
-void initTime();
+#include <chrono>
 
-float getTime();
+extern std::uint64_t startupTime;
+extern float elapsedTimeAbsolute;
+extern float elapsedTimeScaled;
+
+void computeTime();
+
+std::uint64_t getTimeSinceUNIX();
 
 void resetTime();

@@ -23,13 +23,14 @@ int main()
         }
         
         world.window->clear(sf::Color::White);
+        computeTime();
 
         for (int i = 0; i < maxUnits; i++){
             world.allfish[i]->update();
             world.allfish[i]->render();
         }
-
-        if (getTime() >= genDurSecs){
+        
+        if (elapsedTimeScaled >= genDurSecs){
             resetTime();
             gen++;
             world.nextGen();

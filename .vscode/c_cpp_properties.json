@@ -1,0 +1,27 @@
+{
+    "version": 4,
+    "configurations": [
+      {
+        "name": "MinGW",
+        "includePath": [
+          "${workspaceFolder}/**",
+          "C:/SFML-2.5.1-mingw32/include",
+          "C:/SFML-2.5.1-mingw32/include/SFML"
+        ],
+        "defines": [],
+        "compilerPath": "C:/MinGW/bin/gcc.exe",
+        "intelliSenseMode": "gcc-x86",
+        "cStandard": "c11",
+        "cppStandard": "c++17",
+        "browse": {
+          "path": [
+            "${workspaceFolder}",
+            "C:/SFML-2.5.1-mingw32/include",
+            "C:/SFML-2.5.1-mingw32/include/SFML"
+          ],
+          "limitSymbolsToIncludedHeaders": true
+        }
+      }
+    ]
+  }
+  

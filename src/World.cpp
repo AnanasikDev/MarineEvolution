@@ -12,6 +12,18 @@ World::World(float width, float height){
     size = Vectorf(width, height);
     window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), "Evolution");
     initTime();
+
+    for (int i = 0; i < maxUnits; i++){
+        allfish.push_back(std::make_unique<Fish>());
+        Fish* fish = allfish.back().get();
+        fish->moveTo(
+            Random::getVector(
+                Vectorf(0, size.x), 
+                Vectorf(0, size.y)
+                ));
+        fish->genom->fillRandom();
+        fish->onBirth();
+    }
 }
 
 void World::nextGen() {
@@ -34,7 +46,7 @@ void World::nextGen() {
     });
 
     // Determine top performers (e.g., top 20%)
-    int numToKeep = std::max(1, static_cast<int>(allfish.size() * 0.2f));
+    int numToKeep = std::max(1, static_cast<int>(allfish.size() * bestPortion));
 
     // Select the best genomes
     std::vector<Genom*> bestGenomes;
@@ -46,6 +58,7 @@ void World::nextGen() {
     for (size_t i = numToKeep; i < scoredUnits.size(); i++) {
         Genom* parentGenom = bestGenomes[Random::getInt(0, bestGenomes.size() - 1)]; // Random top parent
         scoredUnits[i].first->genom->inherit(*parentGenom);
-        //scoredUnits[i].first->genom->mutate(0.1f); // Mutation strength
+        scoredUnits[i].first->genom->mutate(mutationStrength);
+        scoredUnits[i].first->onBirth();
     }
 }

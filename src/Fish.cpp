@@ -20,12 +20,12 @@ void Fish::update() {
 
     // Initialize input neurons (example values, should be based on real data)
     neurons[in_rand] = (Random::getFloat() - 0.5f) * 2.0f;
-    neurons[in_oscl] = sinf(getTime());
+    neurons[in_oscl] = sinf(getTime() * genom->oscScale);
     neurons[in_mvdrx] = velocity.normalized().x;
     neurons[in_mvdry] = velocity.normalized().y;
     neurons[in_mvsp] = velocity.getLength();
-    neurons[in_posx] = position.x;
-    neurons[in_posy] = position.y;
+    neurons[in_posx] = position.x / (float)worldWidth;
+    neurons[in_posy] = position.y / (float)worldHeight;
     neurons[in_bord] = 0;
     neurons[in_pplt] = 0;
 
@@ -45,5 +45,5 @@ Fish* Fish::instantiate_random(){
 }
 
 float Fish::evaluateSuccess() const {
-    return (position - Vectorf(worldWidth / 2.0f, worldHeight / 2.0f)).getLength();
+    return -(position - Vectorf(worldWidth / 2.0f, worldHeight / 2.0f)).getLength();
 }

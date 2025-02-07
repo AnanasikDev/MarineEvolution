@@ -20,11 +20,11 @@ void Genom::inherit(const Genom& parent) {
         connections.push_back(std::make_unique<Connection>(*conn));
     }
 
-    threatDistance = parent.threatDistance;
+    oscScale = parent.oscScale;
 }
 
 
-Genom Genom::mutate(float max01){
+void Genom::mutate(float max01){
     float r = Random::getFloat();
     
     // rarely change connections number
@@ -47,14 +47,13 @@ Genom Genom::mutate(float max01){
         con->mutate(max01);
     }
 
-    // sometimes change threat distance
     if (r > 0.5f){
-        threatDistance = clamp(threatDistance + (Random::getFloat(-max01, max01)), 0.0f, 30.0f);
+        oscScale = clamp(oscScale + (Random::getFloat(-max01, max01)), -oscScaleMinMax, oscScaleMinMax);
     }
 }
 
 void Genom::fillRandom(){
-    threatDistance = Random::getFloat(0.0f, 10.0f);
+    oscScale = Random::getFloat(-oscScaleMinMax, oscScaleMinMax);
     connectionsNum = Random::getInt(0, 10);
     connections.clear();
     for (int c = 0; c < connectionsNum; c++){
@@ -96,4 +95,39 @@ void Genom::process(std::vector<float>& neurons) {
     for (size_t i = maxInNeurons; i < neurons.size(); i++) {
         neurons[i] = std::tanh(neurons[i]);
     }
+}
+
+float Genom::encode() const {
+    float encoded_value = 0.0f;
+    float total_weight = 0.0f;
+    float total_in_neurons = 0.0f;
+    float total_out_neurons = 0.0f;
+
+    // Iterate over each connection and normalize its values
+    for (const auto& conn : connections) {
+        // Normalize weight: [weightMinMax, -weightMinMax] -> [0.0, 1.0]
+        float normalized_weight = (conn->weight + weightMinMax) / (2 * weightMinMax);
+        total_weight += normalized_weight;
+
+        // Normalize in_neuron: [0, maxInNeurons] -> [0.0, 1.0]
+        float normalized_in_neuron = static_cast<float>(conn->in_neuron) / maxInNeurons;
+        total_in_neurons += normalized_in_neuron;
+
+        // Normalize out_neuron: [0, maxOutNeurons] -> [0.0, 1.0]
+        float normalized_out_neuron = static_cast<float>(conn->out_neuron) / maxOutNeurons;
+        total_out_neurons += normalized_out_neuron;
+    }
+
+    // Combine the normalized values
+    size_t num_connections = connections.size();
+    if (num_connections > 0) {
+        total_weight /= num_connections;
+        total_in_neurons /= num_connections;
+        total_out_neurons /= num_connections;
+
+        // Combine the normalized averages to get a final value between 0.0 and 1.0
+        encoded_value = (total_weight + total_in_neurons + total_out_neurons) / 3.0f;
+    }
+
+    return encoded_value;
 }

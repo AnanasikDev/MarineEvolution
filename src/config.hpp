@@ -7,14 +7,17 @@ constexpr unsigned char maxOutNeurons = 3;
 constexpr unsigned char maxNeutralNeurons = 3;
 constexpr unsigned char maxNeurons = maxInNeurons + maxOutNeurons + maxNeutralNeurons;
 constexpr float weightMinMax = 8.0f;
+constexpr float oscScaleMinMax = 6.0f;
 
 // World config
 constexpr int maxUnits = 30;
 constexpr int worldWidth = 600;
 constexpr int worldHeight = 600;
 constexpr float fishRadius = 4.0f;
-constexpr float genDurSecs = 10.0f;
-constexpr float simSpeed = 1.0f;
+constexpr float genDurSecs = 3.0f;
+constexpr float simSpeed = 10.0f;
+constexpr float bestPortion = 0.2f;
+constexpr float mutationStrength = 0.5f;
 extern int gen;
 
 constexpr unsigned char in_rand = 0;

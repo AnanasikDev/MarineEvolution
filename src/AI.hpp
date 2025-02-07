@@ -53,16 +53,15 @@ struct Connection{
 struct Genom{
     unsigned char connectionsNum;
     std::vector<std::unique_ptr<Connection>> connections;
-
-    /// @brief Max distance at which threat is seen
-    float threatDistance;
+    float oscScale;
 
     Genom() = default;
     Genom(Genom& other);
 
-    Genom mutate(float max);
+    void mutate(float max);
     void fillRandom();
     void inherit(const Genom& parent);
     void process(std::vector<float>& neurons);
     void sortConnections();
+    float encode() const;
 };

@@ -21,3 +21,8 @@ void Unit::moveTo(const Vectorf& newPos){
 void Unit::render(){
     World::world->window->draw(*shape);
 }
+
+void Unit::onBirth(){
+    int v = clamp(genom->encode() * 255, 0, 255);
+    shape->setFillColor(sf::Color(v, v / 2.0f, v / 3.0f, 255));
+}

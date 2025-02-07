@@ -13,6 +13,7 @@ public:
     void translate(const Vectorf& delta);
     void moveTo(const Vectorf& newPos);
     virtual float evaluateSuccess() const = 0;
+    virtual void onBirth(); 
     
 protected:
     Vectorf position;

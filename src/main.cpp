@@ -14,17 +14,6 @@ int main()
 {
     World world(worldWidth, worldHeight);
 
-    for (int i = 0; i < maxUnits; i++){
-        world.allfish.push_back(std::make_unique<Fish>());
-        Fish* fish = world.allfish.back().get();
-        fish->moveTo(
-            Random::getVector(
-                Vectorf(0, world.size.x), 
-                Vectorf(0, world.size.y)
-                ));
-        fish->genom->fillRandom();
-    }
-
     while (world.window->isOpen()) {
 		sf::Event event;
 		while (world.window->pollEvent(event)){

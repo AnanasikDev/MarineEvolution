@@ -12,7 +12,7 @@ World::World(float width, float height){
     world = this;
     size = Vectorf(width, height);
     window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), "Evolution");
-    resetTime();
+    initTime();
 
     for (int i = 0; i < maxUnits; i++){
         allfish.push_back(std::make_unique<Fish>());
@@ -32,7 +32,8 @@ void World::nextGen() {
         std::cout << "Allfish is empty\n";
         return;
     }
-    std::cout << "Generation " << gen << "\n";
+    if (gen % 10 == 0)
+        std::cout << "Generation " << gen << "\n";
 
     // Evaluate success (replace with actual success criteria)
     std::vector<std::pair<Fish*, float>> scoredUnits;

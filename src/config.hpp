@@ -15,7 +15,7 @@ constexpr int worldWidth = 600;
 constexpr int worldHeight = 600;
 constexpr float fishRadius = 4.0f;
 constexpr float genDurSecs = 4.0f;
-constexpr float simSpeed = 500.0f;
+extern float simSpeed;
 constexpr float bestPortion = 0.2f;
 constexpr float mutationStrength = 0.4f;
 constexpr float mutationFreq = 0.3f;

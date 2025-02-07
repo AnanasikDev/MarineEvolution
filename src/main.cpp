@@ -10,6 +10,9 @@
 #include "Fish.hpp"
 #include "Random.hpp"
 
+float inputDelay = 0.2f;
+float lastInput = 0;
+
 int main()
 {
     World world(worldWidth, worldHeight);
@@ -25,15 +28,28 @@ int main()
         world.window->clear(sf::Color::White);
         computeTime();
 
+        if (elapsedTimeAbsolute - lastInput > inputDelay){
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+                simSpeed *= 2.0f;
+                std::cout << "Simulation speed increased from " << simSpeed / 2.0f << " to " << simSpeed << "\n";
+                lastInput = elapsedTimeAbsolute;
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+                simSpeed /= 2.0f;
+                std::cout << "Simulation speed decreased from " << simSpeed * 2.0f << " to " << simSpeed << "\n";
+                lastInput = elapsedTimeAbsolute;
+            }
+        }
+
         for (int i = 0; i < maxUnits; i++){
             world.allfish[i]->update();
             world.allfish[i]->render();
         }
-        
-        if (elapsedTimeScaled >= genDurSecs){
-            resetTime();
+
+        if (genElapsedTimeScaled >= genDurSecs){
             gen++;
             world.nextGen();
+            resetGenTime();
         }
 
         world.window->display();

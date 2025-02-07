@@ -21,7 +21,7 @@ void Fish::update() {
 
     // Initialize input neurons (example values, should be based on real data)
     neurons[in_rand] = (Random::getFloat() - 0.5f) * 2.0f;
-    neurons[in_oscl] = sinf(elapsedTimeScaled * genom->oscScale);
+    neurons[in_oscl] = sinf(genElapsedTimeScaled * genom->oscScale);
     neurons[in_mvdrx] = velocity.normalized().x;
     neurons[in_mvdry] = velocity.normalized().y;
     neurons[in_mvsp] = velocity.getLength();

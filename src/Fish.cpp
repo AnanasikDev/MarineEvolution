@@ -43,3 +43,7 @@ void Fish::update() {
 Fish* Fish::instantiate_random(){
     World::world->allfish.push_back(std::make_unique<Fish>());
 }
+
+float Fish::evaluateSuccess() const {
+    return (position - Vectorf(worldWidth / 2.0f, worldHeight / 2.0f)).getLength();
+}

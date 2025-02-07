@@ -12,7 +12,7 @@
 
 int main()
 {
-    World world(800, 800);
+    World world(worldWidth, worldHeight);
 
     for (int i = 0; i < maxUnits; i++){
         world.allfish.push_back(std::make_unique<Fish>());
@@ -45,7 +45,7 @@ int main()
             gen++;
             world.nextGen();
         }
-        
+
         world.window->display();
 	}
 	

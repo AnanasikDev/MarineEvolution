@@ -15,7 +15,10 @@ World::World(float width, float height){
 }
 
 void World::nextGen() {
-    if (allfish.empty()) return;
+    if (allfish.empty()){
+        std::cout << "Allfish is empty\n";
+        return;
+    }
     std::cout << "Generation " << gen << "\n";
 
     // Evaluate success (replace with actual success criteria)
@@ -43,6 +46,6 @@ void World::nextGen() {
     for (size_t i = numToKeep; i < scoredUnits.size(); i++) {
         Genom* parentGenom = bestGenomes[Random::getInt(0, bestGenomes.size() - 1)]; // Random top parent
         scoredUnits[i].first->genom->inherit(*parentGenom);
-        scoredUnits[i].first->genom->mutate(0.1f); // Mutation strength
+        //scoredUnits[i].first->genom->mutate(0.1f); // Mutation strength
     }
 }

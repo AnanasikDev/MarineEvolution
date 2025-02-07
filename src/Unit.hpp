@@ -12,7 +12,7 @@ public:
     virtual void update() = 0;
     void translate(const Vectorf& delta);
     void moveTo(const Vectorf& newPos);
-    float evaluateSuccess() const;
+    virtual float evaluateSuccess() const = 0;
     
 protected:
     Vectorf position;

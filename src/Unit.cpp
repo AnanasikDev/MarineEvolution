@@ -21,7 +21,3 @@ void Unit::moveTo(const Vectorf& newPos){
 void Unit::render(){
     World::world->window->draw(*shape);
 }
-
-float Unit::evaluateSuccess() const{
-    return (position - Vectorf(worldWidth / 2.0f, worldHeight / 2.0f)).getLength();
-}

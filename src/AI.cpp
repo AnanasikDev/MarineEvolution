@@ -58,7 +58,7 @@ void Genom::mutate(float max01){
 
 void Genom::fillRandom(){
     oscScale = Random::getFloat(-oscScaleMinMax, oscScaleMinMax);
-    connectionsNum = Random::getInt(1, 10);
+    connectionsNum = Random::getInt(4, 11);
     connections.clear();
     for (int c = 0; c < connectionsNum; c++){
         connections.push_back(std::make_unique<Connection>());

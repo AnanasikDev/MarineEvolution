@@ -4,14 +4,14 @@ import re
 
 # Example input
 connections = """
-in_pplt(8) -> in_mvdrx(2)
-neutral(12) -> neutral(12)
-in_mvdry(3) -> neutral(13)
-in_oscl(1) -> o_movy(10)
-in_mvdrx(2) -> in_bord(7)
-neutral(14) -> in_mvdrx(2)
-in_posx(5) -> in_pplt(8)
-in_oscl(1) -> in_mvsp(4)
+in_oscl(1) -> in_bord(4)
+neutral(10) -> o_movx(5)
+neutral(8) -> neutral(9)
+in_bord(4) -> o_movx(5)
+neutral(8) -> o_movx(5)
+neutral(8) -> o_movx(5)
+in_bord(4) -> neutral(8)
+neutral(9) -> neutral(9)
 """
 
 def parse_connections(input_text):

@@ -58,6 +58,9 @@ void World::nextGen() {
         if (Random::getFloat() < mutationFreq){
             scoredUnits[i].first->genom->mutate(mutationStrength);
         }
-        scoredUnits[i].first->onBirth();
+    }
+
+    for (int f = 0; f < maxUnits; f++) {
+        allfish[f]->onBirth();
     }
 }

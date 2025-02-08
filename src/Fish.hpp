@@ -6,6 +6,7 @@ public:
     Fish();
     static Fish* instantiate_random();
     float evaluateSuccess() const override;
+    float distanceToNearest() const override;
 
     void update() override;
 };

@@ -14,8 +14,9 @@ public:
     void moveTo(const Vectorf& newPos);
     virtual float evaluateSuccess() const = 0;
     virtual void onBirth(); 
-    
-protected:
+    virtual float distanceToNearest() const = 0;
+    void printGenome() const;
+    bool containsPoint(const Vectorf& point) const;
     Vectorf position;
     Vectorf lastPosition;
     Vectorf velocity;

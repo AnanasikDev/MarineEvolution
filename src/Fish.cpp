@@ -49,5 +49,13 @@ Fish* Fish::instantiate_random(){
 
 float Fish::evaluateSuccess() const {
     //return worldWidth - abs(position.x - (float)worldWidth / 2.0f);
-    return -(position - Vectorf(worldWidth / 2.0f, worldHeight / 2.0f)).getLength();
+    return (position - Vectorf(worldWidth / 2.0f, worldHeight / 2.0f)).getLength() * distanceToNearest();
+}
+
+float Fish::distanceToNearest() const{
+    float d = 10000.;
+    for (const auto& f : World::world->allfish){
+        d = std::min(f->position.distance(position), d);
+    }
+    return d;
 }

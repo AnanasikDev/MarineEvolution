@@ -17,11 +17,6 @@ World::World(float width, float height){
     for (int i = 0; i < maxUnits; i++){
         allfish.push_back(std::make_unique<Fish>());
         Fish* fish = allfish.back().get();
-        fish->moveTo(
-            Random::getVector(
-                Vectorf(0, size.x), 
-                Vectorf(0, size.y)
-                ));
         fish->genom->fillRandom();
         fish->onBirth();
     }

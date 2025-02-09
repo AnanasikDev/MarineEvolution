@@ -12,7 +12,7 @@ std::string getNeuronName(int neuronID) {
     // };
     static const std::unordered_map<int, std::string> neuronNames = {
         {in_rand, "in_rand"}, {in_oscl, "in_oscl"},
-        {in_posx, "in_posx"},
+        {in_posx, "in_posx"}, {in_pplt, "in_pplt"},
         {in_posy, "in_posy"}, {in_bord, "in_bord"}, {o_movx, "o_movx"}, {o_movy, "o_movy"}, {o_oscf, "o_oscf"}
     };
 

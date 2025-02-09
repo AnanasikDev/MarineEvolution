@@ -28,19 +28,19 @@ void Genom::mutate(float max01){
     float r = Random::getFloat();
     
     // rarely change connections number
-    // if (r < max01 / 6.0f){
-    //     int d = Random::getSign();
-    //     connectionsNum += d;
-    //     if (d > 0)
-    //     {
-    //         connections.push_back(std::make_unique<Connection>());
-    //         connections.back()->randomize();
-    //     }
-    //     else{
-    //         if (!connections.empty())
-    //             connections.pop_back();
-    //     }
-    // }
+    if (r < max01 / 6.0f){
+        int d = Random::getSign();
+        connectionsNum += d;
+        if (d > 0)
+        {
+            connections.push_back(std::make_unique<Connection>());
+            connections.back()->randomize();
+        }
+        else{
+            if (!connections.empty())
+                connections.pop_back();
+        }
+    }
 
     // often change connections values
     if (r < max01 / 1.2f){

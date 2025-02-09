@@ -25,12 +25,12 @@ void Fish::update() {
     //neurons[in_mvdrx] = velocity.normalized().x;
     //neurons[in_mvdry] = velocity.normalized().y;
     //neurons[in_mvsp] = velocity.getLength();
-    neurons[in_posx] = position.x / (float)worldWidth;
-    neurons[in_posy] = position.y / (float)worldHeight;
+    neurons[in_posx] = (position.x - (float)worldWidth / 2.0f) / (float)worldWidth;
+    neurons[in_posy] = (position.y - (float)worldWidth / 2.0f) / (float)worldHeight;
     neurons[in_bord] = std::min(
         std::min(position.x, worldWidth - position.x) / (float)worldWidth,
         std::min(position.y, worldHeight - position.y) / (float)worldHeight);
-    //neurons[in_pplt] = 0;
+    neurons[in_pplt] = 1.0f / distanceToNearest();
 
     // Process the neural network
     genom->process(neurons);
@@ -49,12 +49,15 @@ Fish* Fish::instantiate_random(){
 
 float Fish::evaluateSuccess() const {
     //return worldWidth - abs(position.x - (float)worldWidth / 2.0f);
-    return 1.0f/(position - Vectorf(worldWidth / 2.0f, worldHeight / 2.0f)).getLength();
+    //return 10.0f/sqrt((position - Vectorf(worldWidth / 2.0f, //worldHeight / 2.0f)).getLength()) + distanceToNearest() / 3.0f;
+    float dist = (position - Vectorf(worldWidth / 2.0f, worldHeight / 2.0f)).getLength();
+    return dist > 100 && dist < 250 ? 1 : 0;
 }
 
 float Fish::distanceToNearest() const{
     float d = 10000.;
     for (const auto& f : World::world->allfish){
+        if (f.get() == this) continue;
         d = std::min(f->position.distance(position), d);
     }
     return d;
